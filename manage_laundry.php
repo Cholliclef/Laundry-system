@@ -62,10 +62,19 @@ if(isset($_GET['id'])){
 						<label for="" class="control-label">&nbsp;</label>
 						<button class="btn btn-info btn-sm btn-block" type="button" id="add_to_list"> Add to List</button>
 					</div>
+					<div class="form-group">
+						<label for="" class="control-label">&nbsp;</label>
+						<button class="btn-block btn-primary btn-sm" type="button" id="print"><i class="fa fa-print"></i> Print</button>
+					</div>
 				</div>
 			</div>
-			<div class="row">	
-				<table class="table table-bordered" id="list">
+			<div id="list" class="row" style="width:100%">
+				<div class="form-group">	
+					<label for="" class="control-label">Customer Name: </label>
+					<!-- <input type="read-only" class="form-control" name="customer_name" value="<?php echo isset($customer_name) ? $customer_name : '' ?>"> -->
+					<?php echo isset($customer_name) ? $customer_name : '' ?>
+				</div>
+				<table class="table table-bordered" >
 					<colgroup>	
 						<col width="30%">
 						<col width="15%">
@@ -92,10 +101,10 @@ if(isset($_GET['id'])){
 								<td class="">
 									<input type="hidden" name="item_id[]" id="" value="<?php echo $row['id'] ?>">
 									<input type="hidden" name="laundry_type_id[]" id="" value="<?php echo $row['laundry_type_id'] ?>"><?php echo isset($cname_arr[$row['laundry_type_id']]) ? ucwords($cname_arr[$row['laundry_type_id']]) : '' ?></td>
-								<td><input type="number" class="text-center" name="weight[]" id="" value="<?php echo $row['weight'] ?>"></td>
+								<td class="text-right"><input type="hidden" name="weight[]" id="" value="<?php echo $row['weight'] ?>"><?php echo number_format($row['weight']) ?></td>
 								<td class="text-right"><input type="hidden" name="unit_price[]" id="" value="<?php echo $row['unit_price'] ?>"><?php echo number_format($row['unit_price'],2) ?></td>
 								<td class="text-right"><input type="hidden" name="amount[]" id="" value="<?php echo $row['amount'] ?>"><p><?php echo number_format($row['amount'],2) ?></p></td>
-								<td><button class="btn btn-sm btn-danger" type="button" onclick="rem_list($(this))">Remove</button></td>
+								<td><button class="btn btn-sm btn-danger" type="button" onclick="rem_list($(this))">X</button></td>
 							</tr>
 						<?php endwhile; ?>
 						<?php endif; ?>
@@ -103,7 +112,7 @@ if(isset($_GET['id'])){
 					</tbody>	
 					<tfoot>
 						<tr>
-							<th class="text-right" colspan="3"></th>
+							<th class="text-right" colspan="3">Total</th>
 							<th class="text-right" id="tamount"></th>
 							<th class="text-right"></th>
 						</tr>
@@ -136,6 +145,37 @@ if(isset($_GET['id'])){
 		</div>
 	</form>
 </div>
+<noscript>
+	<style>
+			#div{
+				width:100%;
+			}
+			table {
+				border-collapse: collapse;
+				width:100% !important;
+			}
+			tr,th,td{
+				border:1px solid black;
+			}
+			.text-right{
+				text-align: right
+			}
+			.text-right{
+				text-align: center
+			}
+			p{
+				margin:unset;
+			}
+			#div p {
+				display: block;
+			}
+			p.text-center {
+			    text-align: -webkit-center;
+			}
+			
+			
+	</style>
+</noscript>	
 <script>
 	if('<?php echo isset($_GET['id']) ?>' == 1){
 			calc()
@@ -180,7 +220,7 @@ if(isset($_GET['id'])){
 		tr.append('<td><input type="number" class="text-center" name="weight[]" id="" value="'+_weight+'"></td>')
 		tr.append('<td class="text-right"><input type="hidden" name="unit_price[]" id="" value="'+price+'">'+(parseFloat(price).toLocaleString('en-US',{style:'decimal',maximumFractionDigits:2,minimumFractionDigits:2}))+'</td>')
 		tr.append('<td class="text-right"><input type="hidden" name="amount[]" id="" value="'+amount+'"><p>'+(parseFloat(amount).toLocaleString('en-US',{style:'decimal',maximumFractionDigits:2,minimumFractionDigits:2}))+'</p></td>')
-		tr.append('<td><button class="btn btn-sm btn-danger" type="button" onclick="rem_list($(this))">Remove</button></td>')
+		tr.append('<td><button class="btn btn-sm btn-danger" type="button" onclick="rem_list($(this))">X</button></td>')
 		$('#list tbody').append(tr)
 		calc()
 		$('[name="weight[]"]').on('keyup keydown keypress change',function(){
@@ -243,6 +283,19 @@ if(isset($_GET['id'])){
 				}
 			}
 		})
+	})
+
+	$('#print').click(function(){
+		var newWin = document.open('','_blank','height=500,width=600');
+		var _html = $('#list').clone();
+		var ns = $('noscript').clone();
+		newWin.document.write(ns.html())
+		newWin.document.write(_html.html())
+		newWin.document.close()
+		newWin.print()
+		setTimeout(function(){
+			newWin.close()
+		},1500)
 	})
 
 </script>	

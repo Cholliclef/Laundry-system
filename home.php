@@ -19,8 +19,8 @@
 				</div>
 				<hr>
 				<div class="row">
-				<div class="alert alert-success col-md-3 ml-4">
-					<p><b><large>Total Profit Today</large></b></p>
+				<div class="alert alert-success col-md-4 ml-4">
+					<p><b><large>Today's Profit</large></b></p>
 				<hr>
 					<p class="text-right"><b><large><?php 
 					include 'connect.php';
@@ -30,7 +30,7 @@
 					 ?></large></b></p>
 				</div>
 				<div class="alert alert-info col-md-3 ml-4">
-					<p><b><large>Total Customer Today</large></b></p>
+					<p><b><large>Today's Customer(s)</large></b></p>
 				<hr>
 					<p class="text-right"><b><large><?php 
 					include 'connect.php';
@@ -39,8 +39,8 @@
 
 					 ?></large></b></p>
 				</div>
-				<div class="alert alert-primary col-md-3 ml-4">
-					<p><b><large>Total Claimed Laundry Today</large></b></p>
+				<div class="alert alert-primary col-md-4 ml-4">
+					<p><b><large>Today's Claimed Laundry</large></b></p>
 				<hr>
 					<p class="text-right"><b><large><?php 
 					include 'connect.php';

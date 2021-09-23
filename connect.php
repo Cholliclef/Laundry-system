@@ -16,6 +16,6 @@
 //     echo 'connection failed: '.$e->getMessage();
 // }
 
-
+global $conn;
 
 $conn= new mysqli('localhost','root','','laundry_admin_db')or die("Could not connect to mysql".mysqli_error($con));

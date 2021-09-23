@@ -14,10 +14,10 @@
 							<table class="table table-bordered" id="laundry-list">
 								<thead>
 									<tr>
-										<th class="text-center">Date</th>
-										<th class="text-center">Queue</th>
+										<th class="text-center">ID</th>
 										<th class="text-center">Customer Name</th>
 										<th class="text-center">Status</th>
+										<th class="text-center">Date</th>
 										<th class="text-center">Action</th>
 									</tr>
 								</thead>
@@ -27,7 +27,6 @@
 									while($row=$list->fetch_assoc()):
 									?>
 									<tr>
-										<td class=""><?php echo date("M d, Y",strtotime($row['date_created'])) ?></td>
 										<td class="text-right"><?php echo $row['queue'] ?></td>
 										<td class=""><?php echo ucwords($row['customer_name']) ?></td>
 										<?php if($row['status'] == 0): ?>
@@ -39,9 +38,11 @@
 										<?php elseif($row['status'] == 3): ?>
 											<td class="text-center"><span class="badge badge-success">Claimed</span></td>
 										<?php endif; ?>
+										<td class=""><?php echo date("M d, Y",strtotime($row['date_created'])) ?></td>
 										<td class="text-center">
 											<button type="button" class="btn btn-outline-primary btn-sm edit_laundry" data-id="<?php echo $row['id'] ?>">Edit</button>
 											<button type="button" class="btn btn-outline-danger btn-sm delete_laundry" data-id="<?php echo $row['id'] ?>">Delete</button>
+											<button class="btn btn-outline-primary btn-sm print" type="button">Print</button>
 										</td>
 									</tr>
 									<?php endwhile; ?>
@@ -57,12 +58,16 @@
 	$('#new_laundry').click(function(){
 		uni_modal('New Laundry','manage_laundry.php','mid-large')
 	})
+	$('.print').click(function(){
+		uni_modal('Print Receipt','print.php?id='+$(this).attr('data-id'))
+	})
 	$('.edit_laundry').click(function(){
 		uni_modal('Edit Laundry','manage_laundry.php?id='+$(this).attr('data-id'),'mid-large')
 	})
 	$('.delete_laundry').click(function(){
 		_conf("Are you sure you want to remove this data from list?","delete_laundry",[$(this).attr('data-id')])
 	})
+	
 	$('#laundry-list').dataTable()
 	function delete_laundry($id){
 		start_load()

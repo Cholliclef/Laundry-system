@@ -80,6 +80,7 @@ if(isset($_GET['id'])){
 						<col width="15%">
 						<col width="25%">
 						<col width="25%">
+						<col width="5%">
 					</colgroup>	
 					<thead>	
 						<tr>
@@ -87,6 +88,7 @@ if(isset($_GET['id'])){
 							<th class="text-center">Quantity</th>
 							<th class="text-center">Unit Price</th>
 							<th class="text-center">Amount</th>
+							<th class="text-center"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -102,6 +104,7 @@ if(isset($_GET['id'])){
 								<td class="text-right"><input type="hidden" name="weight[]" id="" value="<?php echo $row['weight'] ?>"><?php echo number_format($row['weight']) ?></td>
 								<td class="text-right"><input type="hidden" name="unit_price[]" id="" value="<?php echo $row['unit_price'] ?>"><?php echo number_format($row['unit_price'],2) ?></td>
 								<td class="text-right"><input type="hidden" name="amount[]" id="" value="<?php echo $row['amount'] ?>"><p><?php echo number_format($row['amount'],2) ?></p></td>
+								<td><button class="btn btn-sm btn-danger" type="button" onclick="rem_list($(this))">X</button></td>
 							</tr>
 						<?php endwhile; ?>
 						<?php endif; ?>
@@ -217,6 +220,7 @@ if(isset($_GET['id'])){
 		tr.append('<td><input type="number" class="text-center" name="weight[]" id="" value="'+_weight+'"></td>')
 		tr.append('<td class="text-right"><input type="hidden" name="unit_price[]" id="" value="'+price+'">'+(parseFloat(price).toLocaleString('en-US',{style:'decimal',maximumFractionDigits:2,minimumFractionDigits:2}))+'</td>')
 		tr.append('<td class="text-right"><input type="hidden" name="amount[]" id="" value="'+amount+'"><p>'+(parseFloat(amount).toLocaleString('en-US',{style:'decimal',maximumFractionDigits:2,minimumFractionDigits:2}))+'</p></td>')
+		tr.append('<td><button class="btn btn-sm btn-danger" type="button" onclick="rem_list($(this))">X</button></td>')
 		$('#list tbody').append(tr)
 		calc()
 		$('[name="weight[]"]').on('keyup keydown keypress change',function(){

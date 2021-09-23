@@ -15,12 +15,7 @@
 							<input type="hidden" name="id">
 							<div class="form-group">
 								<label class="control-label">Type</label>
-								<!-- <textarea name="name" id="" cols="30" rows="2" class="form-control"></textarea> -->
-								<select name="name" id="" class="custom-select browser-default">
-							<option></option>
-							<option value="Cloth">Cloth</option>
-							<option value="Bed Sheet">Bed Sheet</option>
-							</select>
+								<textarea name="name" id="" cols="30" rows="2" class="form-control"></textarea>
 							</div>
 							<div class="form-group">
 								<label class="control-label">Price per kg.</label>
@@ -67,7 +62,7 @@
 										<p>Price : <b><?php echo number_format($row['price'],2) ?></b></p>
 									</td>
 									<td class="text-center">
-										<button class="btn btn-sm btn-outline-primary edit_cat" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-price="<?php echo $row['price'] ?>" >Edit</button>
+									<button type="button" class="btn btn-outline-primary btn-sm edit_laundry" data-id="<?php echo $row['id'] ?>">Edit</button>
 										<button class="btn btn-sm btn-danger delete_cat" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
 									</td>
 								</tr>
